@@ -1,6 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -93,6 +94,37 @@ public class FirstTest {
 
         );
     }
+    @Test
+    public void fourthTest() //Ex4
+    {
+        waitForElementPresent(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia'",
+                5
+        );
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia'",
+                5
+        );
+        waitForElementAndSendKeys(
+                By.id("org.wikipedia:id/search_container"),
+                "JAVA",
+                "Cannot find search input",
+                5
+        );
+        WebElement title_element = waitForElementPresent(
+                By.id("org.wikipedia:id/page_list_item_title"),
+                "Cannot find item title",
+                15
+        );
+        String article_title = title_element.getAttribute("text");
+        Assert.assertEquals(
+                "We see unexpected title",
+                "JAVA",
+                article_title
+        );
+    }
     private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
@@ -121,4 +153,7 @@ public class FirstTest {
                 ExpectedConditions.invisibilityOfElementLocated(by)
         );
     }
+
+
+
 }
