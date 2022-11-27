@@ -266,6 +266,32 @@ public class FirstTest {
                 article_title
         );
     }
+    @Test
+    public void sixthTest() //Ex6
+    {
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia'",
+                5
+        );
+        String search_line = "Lady Gaga";
+        waitForElementAndSendKeys(
+                By.id("org.wikipedia:id/search_container"),
+                search_line,
+                "Cannot find search input",
+                5
+        );
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='American singer, songwriter, and actress (born 1986)']"),
+                "Cannot find description",
+                10
+        );
+        String title_element = "org.wikipedia:id/view_page_title_text";
+        assertElementPresent(
+                By.id(title_element),
+                "Cannot find article title"
+        );
+    }
 
     private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds)
     {
@@ -341,5 +367,26 @@ public class FirstTest {
                 .perform();
     }
 
-
+    private WebElement assertElementPresent(By by, String error_message)
+    {
+        WebElement get_of_element = driver.findElement(by);
+        if (get_of_element == null) {
+            String default_message = "An element '" + by.toString() + "'supposed to be not present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
+        return get_of_element;
+    }
+//    private int getAmountOfElements(By by)
+//    {
+//        List elements = driver.findElements(by);
+//        return elements.size();
+//    }
+//    private void assertElementNotPresent(By by, String error_message)
+//    {
+//        int amount_of_elements = getAmountOfElements(by);
+//        if (amount_of_elements > 0) {
+//            String default_message = "Ann element '" + by.toString() + "'supposed to be not present";
+//            throw new AssertionError(default_message + " " + error_message);
+//        }
+//    }
 }
